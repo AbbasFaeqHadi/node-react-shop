@@ -7,7 +7,7 @@ const products = [
     price: 799,
     countInStock: 12,
     rating: 4,
-    numReview: 28,
+    numReviews: 28,
   },
   {
     name: "Classic White T-Shirt",
@@ -17,7 +17,7 @@ const products = [
     price: 199,
     countInStock: 50,
     rating: 5,
-    numReview: 150,
+    numReviews: 150,
   },
   {
     name: "Elegant Evening Dress",
@@ -27,7 +27,7 @@ const products = [
     price: 1499,
     countInStock: 5,
     rating: 4,
-    numReview: 85,
+    numReviews: 85,
   },
   {
     name: "Casual Sneakers",
@@ -36,7 +36,7 @@ const products = [
     price: 699,
     countInStock: 30,
     rating: 3,
-    numReview: 43,
+    numReviews: 43,
   },
   {
     name: "Woolen Scarf",
@@ -45,7 +45,7 @@ const products = [
     price: 249,
     countInStock: 20,
     rating: 4,
-    numReview: 37,
+    numReviews: 37,
   },
   {
     name: "Leather Belt",
@@ -55,7 +55,7 @@ const products = [
     price: 399,
     countInStock: 15,
     rating: 5,
-    numReview: 22,
+    numReviews: 22,
   },
   {
     name: "Running Shorts",
@@ -65,7 +65,7 @@ const products = [
     price: 299,
     countInStock: 25,
     rating: 4,
-    numReview: 40,
+    numReviews: 40,
   },
   {
     name: "Summer Hat",
@@ -74,7 +74,7 @@ const products = [
     price: 179,
     countInStock: 10,
     rating: 4,
-    numReview: 18,
+    numReviews: 18,
   },
   {
     name: "Formal Suit",
@@ -84,7 +84,7 @@ const products = [
     price: 2999,
     countInStock: 3,
     rating: 5,
-    numReview: 10,
+    numReviews: 10,
   },
   {
     name: "Sports Watch",
@@ -94,7 +94,7 @@ const products = [
     price: 899,
     countInStock: 8,
     rating: 4,
-    numReview: 26,
+    numReviews: 26,
   },
   {
     name: "Winter Coat",
@@ -104,7 +104,7 @@ const products = [
     price: 1299,
     countInStock: 7,
     rating: 5,
-    numReview: 33,
+    numReviews: 33,
   },
   {
     name: "Beach Sandals",
@@ -114,7 +114,7 @@ const products = [
     price: 249,
     countInStock: 40,
     rating: 3,
-    numReview: 19,
+    numReviews: 19,
   },
   {
     name: "Formal Blouse",
@@ -124,7 +124,7 @@ const products = [
     price: 499,
     countInStock: 18,
     rating: 4,
-    numReview: 23,
+    numReviews: 23,
   },
   {
     name: "Casual Jeans",
@@ -134,7 +134,7 @@ const products = [
     price: 699,
     countInStock: 25,
     rating: 4,
-    numReview: 57,
+    numReviews: 57,
   },
   {
     name: "Yoga Pants",
@@ -144,7 +144,7 @@ const products = [
     price: 349,
     countInStock: 20,
     rating: 5,
-    numReview: 44,
+    numReviews: 44,
   },
 ];
 

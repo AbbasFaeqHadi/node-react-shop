@@ -9,6 +9,7 @@ orderRoute.post(
   "/",
   protect,
   AsyncHandler(async (req, res) => {
+    // Destructure the properties of req.body to create a new order
     const {
       orderItems,
       shippingAddress,

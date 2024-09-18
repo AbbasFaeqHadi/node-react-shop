@@ -19,7 +19,7 @@ router.post(
   })
 );
 
-router.post(
+router.get(
   "/products",
   AsyncHandler(async (req, res) => {
     // Clear the existing products
