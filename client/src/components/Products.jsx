@@ -47,7 +47,7 @@ const Products = () => {
                                   </Link>
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500">
-                                  Review Count: {product.numReviews}
+                                  Reviews: {product.numReviews}
                                 </p>
                               </div>
                               <p className="text-sm font-medium text-gray-900">

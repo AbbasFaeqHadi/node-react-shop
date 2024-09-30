@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { productAction } from "../redux/actions/Product";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../layout/Layouts";
+import { addToCartAction } from "../redux/actions/Cart";
 
-function ProductDetails() {
+const ProductDetails = () => {
   const { id } = useParams();
+  
   const dispatch = useDispatch();
   const productReducer = useSelector((state) => state.productReducer);
   const { loading, error, product } = productReducer;
@@ -13,6 +15,11 @@ function ProductDetails() {
   useEffect(() => {
     dispatch(productAction(id));
   }, [dispatch, id]);
+
+  const [qty, setQty] = useState(1);
+  const addToCartHandler = () => {
+    dispatch(addToCartAction(id, qty));
+  };
 
   return (
     <Layout>
@@ -26,7 +33,7 @@ function ProductDetails() {
             <div className="container px-5 py-24 mx-auto">
               <div className="lg:w-4/5 mx-auto flex flex-wrap">
                 <img
-                  alt="ecommerce"
+                  alt={product.name || "Product Image"}
                   className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
                   src={product.image}
                 />
@@ -143,38 +150,58 @@ function ProductDetails() {
                       <button className="border-2 border-gray-800 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
                       <button className="border-2 border-gray-800 ml-1 bg-green-500 rounded-full w-6 h-6 focus:outline-none"></button>
                     </div>
-                    <div className="flex ml-6 items-center">
-                      <span className="mr-3">Size</span>
-                      <div className="relative">
-                        <select className="rounded border border-gray-700 focus:ring-2 focus:ring-green-900 bg-transparent appearance-none py-2 focus:outline-none focus:border-green-500 text-white pl-3 pr-10">
-                          <option>SM</option>
-                          <option>M</option>
-                          <option>L</option>
-                          <option>XL</option>
-                        </select>
-                        <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                          <svg
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            className="w-4 h-4"
-                            viewBox="0 0 24 24"
+                    {product.countInStock > 0 ? (
+                      <div className="flex ml-6 items-center">
+                        <span className="mr-3">Quantity</span>
+                        <div className="relative">
+                          <select
+                            value={qty}
+                            onChange={(e) =>
+                              setQty(parseInt(e.target.value, 10))
+                            }
+                            className="rounded border border-gray-700 focus:ring-2 focus:ring-green-900 bg-transparent appearance-none py-2 focus:outline-none focus:border-green-500 text-white pl-3 pr-10"
                           >
-                            <path d="M6 9l6 6 6-6"></path>
-                          </svg>
-                        </span>
+                            {[...Array(product.countInStock).keys()].map((x) => (
+                                  <option key={x + 1}>
+                                    {x + 1}
+                                  </option>
+                                ))}
+                          </select>
+                          <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                            <svg
+                              fill="none"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M6 9l6 6 6-6"></path>
+                            </svg>
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div className="flex">
                     <span className="title-font font-medium text-2xl text-white">
-                      {product.price} SEK
+                      Price: {product.price} SEK
                     </span>
-                    <button className="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
-                      Add to cart
-                    </button>
+                    {product.countInStock > 0 ? (
+                      <button
+                        onClick={addToCartHandler}
+                        className="flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded"
+                      >
+                        Add to cart
+                      </button>
+                    ) : (
+                      <h1 className=" cursor-not-allowed flex ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
+                        Currently unavailable
+                      </h1>
+                    )}
                     <button className="rounded-full w-10 h-10 bg-gray-800 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                       <svg
                         fill="currentColor"

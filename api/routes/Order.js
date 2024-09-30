@@ -12,12 +12,11 @@ orderRoute.post(
     // Destructure the properties of req.body to create a new order
     const {
       orderItems,
-      shippingAddress,
-      paymentMethods,
-      shippingPrice,
-      taxPrice,
+      shippingDetails,
+      paymentMethod,
+      shippingCost,
+      tax,
       totalPrice,
-      price,
     } = req.body;
     if (orderItems && orderItems.length === 0) {
       res.status(400);
@@ -25,12 +24,11 @@ orderRoute.post(
     } else {
       const order = new Order({
         orderItems,
-        shippingAddress,
-        paymentMethods,
-        shippingPrice,
-        taxPrice,
+        shippingDetails,
+        paymentMethod,
+        shippingCost,
+        tax,
         totalPrice,
-        price,
         user: req.user._id,
       });
       const createdOrder = await order.save();
@@ -45,6 +43,7 @@ orderRoute.put(
   protect,
   AsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
+  
     if (order) {
       order.isPaid = true;
       order.paidAt = Date.now();
@@ -63,6 +62,7 @@ orderRoute.put(
     }
   })
 );
+
 // Get all the orders.
 orderRoute.get(
   "/",
