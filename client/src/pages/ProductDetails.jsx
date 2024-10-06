@@ -7,7 +7,7 @@ import { addToCartAction } from "../redux/actions/Cart";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  
+
   const dispatch = useDispatch();
   const productReducer = useSelector((state) => state.productReducer);
   const { loading, error, product } = productReducer;
@@ -24,9 +24,17 @@ const ProductDetails = () => {
   return (
     <Layout>
       {loading ? (
-        <h1>Loading</h1>
+        <div className="flex items-center justify-center min-h-48">
+          <h1 className="text-3xl font-bold text-gray-700 dark:text-gray-300">
+            Loading...
+          </h1>
+        </div>
       ) : error ? (
-        <h1>{error}</h1>
+        <div className="flex items-center justify-center min-h-48 h-auto">
+          <h1 className="text-3xl font-bold text-red-500 dark:text-red-300">
+            {error}
+          </h1>
+        </div>
       ) : (
         <>
           <section className="text-gray-400 bg-gray-900 body-font overflow-hidden">
@@ -161,11 +169,11 @@ const ProductDetails = () => {
                             }
                             className="rounded border border-gray-700 focus:ring-2 focus:ring-green-900 bg-transparent appearance-none py-2 focus:outline-none focus:border-green-500 text-white pl-3 pr-10"
                           >
-                            {[...Array(product.countInStock).keys()].map((x) => (
-                                  <option key={x + 1}>
-                                    {x + 1}
-                                  </option>
-                                ))}
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1}>{x + 1}</option>
+                              )
+                            )}
                           </select>
                           <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                             <svg
@@ -223,6 +231,6 @@ const ProductDetails = () => {
       )}
     </Layout>
   );
-}
+};
 
 export default ProductDetails;

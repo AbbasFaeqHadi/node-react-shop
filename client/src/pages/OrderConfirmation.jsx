@@ -29,7 +29,11 @@ const OrderConfirmation = () => {
   return (
     <Layout>
       {loading ? (
-        <h1>Loading</h1>
+        <div className="flex items-center justify-center min-h-48 dark:bg-gray-900">
+          <h1 className="text-3xl font-bold text-gray-700 dark:text-gray-300">
+            Loading...
+          </h1>
+        </div>
       ) : (
         <div className="flex items-center justify-center min-h-screen bg-white">
           {isConfettiActive && <Confetti />}

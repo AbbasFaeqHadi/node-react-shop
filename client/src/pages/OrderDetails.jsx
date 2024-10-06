@@ -106,45 +106,65 @@ const OrderDetails = () => {
   return (
     <>
       <Layout>
-        <section className="text-gray-600 body-font overflow-hidden">
+        <section className="text-gray-600 dark:text-gray-400 body-font dark:bg-gray-900 overflow-hidden">
+          {" "}
           <div className="container px-5 py-24 mx-auto">
             <div className="lg:w-4/5 mx-auto flex flex-wrap">
               <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-                <h2 className="title-font text-gray-500 tracking-widest">
+                <h2 className="title-font text-gray-500 dark:text-gray-300 tracking-widest">
+                  {" "}
                   Order summary
                 </h2>
                 <CartItems items={cartItems} />
-                <div className="flex border-t border-gray-200 py-2">
-                  <span className="text-gray-500">Subtotal</span>
-                  <span className="ml-auto text-gray-900">{subtotal} SEK</span>
+                <div className="flex border-t border-gray-200 dark:border-gray-700 py-2">
+                  {" "}
+                  <span className="text-gray-500 dark:text-gray-300">
+                    Subtotal
+                  </span>{" "}
+                  <span className="ml-auto text-gray-900 dark:text-gray-100">
+                    {subtotal} SEK
+                  </span>{" "}
                 </div>
-                <div className="flex border-t border-gray-200 py-2">
-                  <span className="text-gray-500">Tax (Vat: 25%)</span>
-                  <span className="ml-auto text-gray-900">{taxFee} SEK</span>
+                <div className="flex border-t border-gray-200 dark:border-gray-700 py-2">
+                  {" "}
+                  <span className="text-gray-500 dark:text-gray-300">
+                    Tax (Vat: 25%)
+                  </span>{" "}
+                  <span className="ml-auto text-gray-900 dark:text-gray-100">
+                    {taxFee} SEK
+                  </span>{" "}
                 </div>
-                <div className="flex border-t border-b mb-6 border-gray-200 py-2">
-                  <span className="text-gray-500">Shipping Cost</span>
-                  <span className="ml-auto text-gray-900">
+                <div className="flex border-t border-b mb-6 border-gray-200 dark:border-gray-700 py-2">
+                  {" "}
+                  <span className="text-gray-500 dark:text-gray-300">
+                    Shipping Cost
+                  </span>{" "}
+                  <span className="ml-auto text-gray-900 dark:text-gray-100">
                     {shippingFee} SEK
                   </span>
                 </div>
                 <div className="flex">
-                  <span className="title-font font-medium text-2xl text-gray-900">
+                  <span className="title-font font-medium text-2xl text-gray-900 dark:text-gray-100">
+                    {" "}
                     {total} SEK
                   </span>
                 </div>
               </div>
 
               <div className="lg:w-1/3 md:w-1/2 p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10">
-                <h2 className="text-lg mb-1 font-medium title-font">
+                <h2 className="text-lg mb-1 font-medium title-font dark:text-gray-200">
+                  {" "}
+                  
                   Shipping details
                 </h2>
-                <p>Please provide your complete shipping details.</p>
+                <p className="dark:text-gray-400">
+                  Please provide your complete shipping details.
+                </p>{" "}
 
                 <div className="relative mb-4">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-400"
+                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
                   >
                     Name of recipient
                   </label>
@@ -154,14 +174,13 @@ const OrderDetails = () => {
                     name="recipientName"
                     value={recipientName}
                     onChange={(e) => setRecipientName(e.target.value)}
-                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
-
                 <div className="relative mb-4">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-400"
+                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
                   >
                     Address
                   </label>
@@ -171,14 +190,13 @@ const OrderDetails = () => {
                     name="address"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
-
                 <div className="relative mb-4">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-400"
+                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
                   >
                     Postal code
                   </label>
@@ -188,14 +206,13 @@ const OrderDetails = () => {
                     name="postalCode"
                     value={postalCode}
                     onChange={(e) => setPostalCode(e.target.value)}
-                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
-
                 <div className="relative mb-4">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-400"
+                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
                   >
                     City
                   </label>
@@ -205,14 +222,13 @@ const OrderDetails = () => {
                     name="city"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
-
                 <div className="relative mb-4">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-400"
+                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
                   >
                     Country
                   </label>
@@ -222,17 +238,15 @@ const OrderDetails = () => {
                     name="country"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
-                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
-
                 <button
                   onClick={saveShippingDetails}
                   className="mb-10 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
                 >
                   Save shipping details
                 </button>
-
                 {clientId && (
                   <PayPalScriptProvider
                     options={{
@@ -252,7 +266,7 @@ const OrderDetails = () => {
                                 currency_code: "SEK",
                                 value: total,
                                 "disable-set-cookie": "true", // Disable cookies to prevent browser blocking on Firefox
-                                "data-sdk-integration-source": "button", // Specifie that the integration is a button for proper SDK behavior
+                                "data-sdk-integration-source": "button", // Specify that the integration is a button for proper SDK behavior
                               },
                             },
                           ],

@@ -16,8 +16,8 @@ const Checkout = ({ open, setOpen }) => {
   const { cartItems } = cart;
 
   const total = cartItems
-  .reduce((total, item) => total + item.qty * item.price, 0)
-  .toFixed(2);
+    .reduce((total, item) => total + item.qty * item.price, 0)
+    .toFixed(2);
 
   return (
     <Dialog
@@ -27,7 +27,7 @@ const Checkout = ({ open, setOpen }) => {
     >
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity duration-500 ease-in-out data-[closed]:opacity-0"
+        className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-75 transition-opacity duration-500 ease-in-out data-[closed]:opacity-0"
       />
 
       <div className="fixed inset-0 overflow-hidden">
@@ -37,17 +37,17 @@ const Checkout = ({ open, setOpen }) => {
               transition
               className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700"
             >
-              <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+              <div className="flex h-full flex-col overflow-y-scroll bg-white dark:bg-gray-800 shadow-xl">
                 <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                   <div className="flex items-start justify-between">
-                    <DialogTitle className="text-lg font-medium text-gray-900">
+                    <DialogTitle className="text-lg font-medium text-gray-900 dark:text-gray-100">
                       Shopping cart
                     </DialogTitle>
                     <div className="ml-3 flex h-7 items-center">
                       <button
                         type="button"
                         onClick={() => setOpen(false)}
-                        className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
+                        className="relative -m-2 p-2 text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-400"
                       >
                         <span className="absolute -inset-0.5" />
                         <span className="sr-only">Close panel</span>
@@ -59,29 +59,29 @@ const Checkout = ({ open, setOpen }) => {
                   <CartItems items={cartItems} />
                 </div>
 
-                <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                  <div className="flex justify-between text-base font-medium text-gray-900">
+                <div className="border-t border-gray-200 dark:border-gray-700 px-4 py-6 sm:px-6">
+                  <div className="flex justify-between text-base font-medium text-gray-900 dark:text-gray-100">
                     <p>Subtotal</p>
                     <p>{total} SEK</p>
                   </div>
-                  <p className="mt-0.5 text-sm text-gray-500">
+                  <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
                     Shipping and taxes calculated at checkout.
                   </p>
                   <div className="mt-6">
                     <Link
                       to="/orderdetails"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                      className="flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
                     >
                       Checkout
                     </Link>
                   </div>
-                  <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                  <div className="mt-6 flex justify-center text-center text-sm text-gray-500 dark:text-gray-400">
                     <p>
                       or{" "}
                       <button
                         type="button"
                         onClick={() => setOpen(false)}
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                        className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
                       >
                         Continue Shopping
                         <span aria-hidden="true"> &rarr;</span>
@@ -96,6 +96,6 @@ const Checkout = ({ open, setOpen }) => {
       </div>
     </Dialog>
   );
-}
+};
 
 export default Checkout;

@@ -8,6 +8,7 @@ import { Navigate } from "react-router-dom";
 import Checkout from "./pages/Checkout";
 import OrderDetails from "./pages/OrderDetails";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import { OrderHistory } from "./pages/OrderHistory";
 function App() {
   // Check if user is logged in or not.
   const userLoginReducer = useSelector((state) => state.userLoginReducer);
@@ -41,7 +42,8 @@ function App() {
           <Route exact path="/orderdetails" element={<OrderDetails />}></Route>
 
           <Route exact path="/order/:id" element={<OrderConfirmation />}></Route>
-
+          
+          <Route exact path="/order-history" element={<OrderHistory />}></Route>
         </Routes>
       </Router>
     </>

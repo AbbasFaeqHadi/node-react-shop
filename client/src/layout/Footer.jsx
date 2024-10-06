@@ -1,22 +1,21 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <>
-      <footer className="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+      <footer className="bg-gray-50 shadow dark:bg-gray-900">
         <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
           <div className="sm:flex sm:items-center sm:justify-between">
-            <a
-              href="https://flowbite.com/"
-              className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
-            >
+            <Link to="/" className="flex items-center">
               <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8"
-                alt="Flowbite Logo"
+                src="https://www.svgrepo.com/show/520948/shopping-bag-4.svg"
+                className="h-8 mr-1 dark:invert"
+                alt="Web shop Logo"
               />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Flowbite
+              <span className="text-blue-600 self-center text-2xl font-semibold whitespace-nowrap dark:text-white dark:text-blue-400">
+                Online Fashion
               </span>
-            </a>
+            </Link>
             <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
               <li>
                 <a href="#" className="hover:underline me-4 md:me-6">
@@ -26,11 +25,6 @@ const Footer = () => {
               <li>
                 <a href="#" className="hover:underline me-4 md:me-6">
                   Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
-                  Licensing
                 </a>
               </li>
               <li>
@@ -44,7 +38,7 @@ const Footer = () => {
           <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
             <a href="https://flowbite.com/" className="hover:underline">
-              Flowbite™
+              Online Fashion™. Thank you for choosing us. Your style, your way.
             </a>
             . All Rights Reserved.
           </span>
