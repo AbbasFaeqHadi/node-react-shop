@@ -9,6 +9,10 @@ import Checkout from "./pages/Checkout";
 import OrderDetails from "./pages/OrderDetails";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import { OrderHistory } from "./pages/OrderHistory";
+import ContactUs from "./pages/ContactUs";
+import About from "./pages/About";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+
 function App() {
   // Check if user is logged in or not.
   const userLoginReducer = useSelector((state) => state.userLoginReducer);
@@ -44,6 +48,13 @@ function App() {
           <Route exact path="/order/:id" element={<OrderConfirmation />}></Route>
           
           <Route exact path="/order-history" element={<OrderHistory />}></Route>
+
+          <Route exact path="/about" element={<About />}></Route>
+
+          <Route exact path="/contact" element={<ContactUs />}></Route>
+
+          <Route exact path="/privacy-policy" element={<PrivacyPolicy />}></Route>
+
         </Routes>
       </Router>
     </>

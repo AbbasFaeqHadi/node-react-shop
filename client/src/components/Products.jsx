@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { productListAction } from "../redux/actions/Product";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -15,11 +16,7 @@ const Products = () => {
   return (
     <div>
       {loading ? (
-        <div className="flex items-center justify-center min-h-48">
-          <h1 className="text-3xl font-bold text-gray-700 dark:text-gray-300">
-            Loading...
-          </h1>
-        </div>
+        <Loading />
       ) : error ? (
         <div className="flex items-center justify-center min-h-48 h-auto">
           <h1 className="text-3xl font-bold text-red-500 dark:text-red-300">{error}</h1>

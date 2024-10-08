@@ -2,6 +2,7 @@ import { useState } from "react";
 import Layout from "../../layout/Layouts";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegisterAction } from "../../redux/actions/User";
+import Loading from "../../components/Loading";
 
 export default function Register() {
   // The React hook, useState() is used here for local state management
@@ -22,12 +23,16 @@ export default function Register() {
 
   // Component rendering
   return (
-    <>
+    <div className="bg-white dark:bg-gray-700">
       <Layout>
         {loading ? (
-          <h1>Loading</h1>
+          <Loading />
         ) : error ? (
-          <h1>{error}</h1>
+          <div className="flex items-center justify-center min-h-48 h-auto">
+          <h1 className="text-3xl font-bold text-red-500 dark:text-red-300">
+            {error}
+          </h1>
+        </div>
         ) : (
           <>
             <form className="max-w-sm mx-auto h-5/6" onSubmit={submitHandler}>
@@ -109,6 +114,6 @@ export default function Register() {
           </>
         )}
       </Layout>
-    </>
+    </div>
   );
 }

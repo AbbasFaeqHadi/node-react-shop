@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 const Layout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">      
-      <Navbar />
+      <Navbar className="bg-gray-50 dark:bg-gray-900"/>
       <main className="flex-grow">{children}</main>
-      <Footer />
+      <Footer className="bg-gray-50 dark:bg-gray-900"/>
     </div>
   );
 };

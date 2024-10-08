@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../layout/Layouts";
 import { useState } from "react";
 import { userLoginAction } from "../../redux/actions/User";
+import Loading from "../../components/Loading";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,11 +18,16 @@ export default function Login() {
   };
 
   return (
+    <div className="bg-white dark:bg-gray-700">
     <Layout>
       {loading ? (
-        <h1>loading</h1>
+        <Loading />
       ) : error ? (
-        <h1>{error}</h1>
+        <div className="flex items-center justify-center min-h-48 h-auto">
+        <h1 className="text-3xl font-bold text-red-500 dark:text-red-300">
+          {error}
+        </h1>
+      </div>
       ) : (
         <>
           <form className="max-w-sm mx-auto h-5/6" onSubmit={submitHandler}>
@@ -69,5 +75,6 @@ export default function Login() {
         </>
       )}
     </Layout>
+    </div>
   );
 }

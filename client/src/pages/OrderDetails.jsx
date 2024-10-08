@@ -46,6 +46,7 @@ const OrderDetails = () => {
   // Add order confirmation
   const orderReducer = useSelector((state) => state.orderReducer);
   const { order, success } = orderReducer;
+  const [shippingInfoSaved, setShippingInfoSaved] = useState(false);
   const [paymentResult, setPaymentResult] = useState({});
   const navigate = useNavigate();
 
@@ -90,204 +91,238 @@ const OrderDetails = () => {
     }
   };
 
+  const isValidInput = () => {
+    const valuesToValdiate = [
+      recipientName,
+      address,
+      postalCode,
+      city,
+      country,
+    ];
+
+    for (let i = 0; i < valuesToValdiate.length; i++) {
+      if (valuesToValdiate[i].trim() === "") {
+        return false;
+      }
+    }
+    return true;
+  };
+
   // Save shipping details to the Redux store
   const saveShippingDetails = () => {
-    dispatch(
-      saveShippingDetailsAction({
-        recipientName,
-        address,
-        postalCode,
-        city,
-        country,
-      })
-    );
+    try {
+      dispatch(
+        saveShippingDetailsAction({
+          recipientName,
+          address,
+          postalCode,
+          city,
+          country,
+        })
+      );
+
+      setShippingInfoSaved(true);
+    } catch (error) {
+      console.error("Error saving shipping details:", error);
+    }
+  };
+
+  // Handle input change to reset shippingSaved to false when user makes changes
+  const handleInputChange = (setter) => (e) => {
+    setter(e.target.value);
+    setShippingInfoSaved(false); // Reset saved status when fields are modified
   };
 
   return (
-    <>
-      <Layout>
-        <section className="text-gray-600 dark:text-gray-400 body-font dark:bg-gray-900 overflow-hidden">
-          {" "}
-          <div className="container px-5 py-24 mx-auto">
-            <div className="lg:w-4/5 mx-auto flex flex-wrap">
-              <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-                <h2 className="title-font text-gray-500 dark:text-gray-300 tracking-widest">
-                  {" "}
-                  Order summary
-                </h2>
-                <CartItems items={cartItems} />
-                <div className="flex border-t border-gray-200 dark:border-gray-700 py-2">
-                  {" "}
-                  <span className="text-gray-500 dark:text-gray-300">
-                    Subtotal
-                  </span>{" "}
-                  <span className="ml-auto text-gray-900 dark:text-gray-100">
-                    {subtotal} SEK
-                  </span>{" "}
-                </div>
-                <div className="flex border-t border-gray-200 dark:border-gray-700 py-2">
-                  {" "}
-                  <span className="text-gray-500 dark:text-gray-300">
-                    Tax (Vat: 25%)
-                  </span>{" "}
-                  <span className="ml-auto text-gray-900 dark:text-gray-100">
-                    {taxFee} SEK
-                  </span>{" "}
-                </div>
-                <div className="flex border-t border-b mb-6 border-gray-200 dark:border-gray-700 py-2">
-                  {" "}
-                  <span className="text-gray-500 dark:text-gray-300">
-                    Shipping Cost
-                  </span>{" "}
-                  <span className="ml-auto text-gray-900 dark:text-gray-100">
-                    {shippingFee} SEK
-                  </span>
-                </div>
-                <div className="flex">
-                  <span className="title-font font-medium text-2xl text-gray-900 dark:text-gray-100">
-                    {" "}
-                    {total} SEK
-                  </span>
-                </div>
+    <Layout>
+      <section className="text-gray-600 dark:text-gray-400 body-font dark:bg-gray-900 overflow-hidden">
+        {" "}
+        <div className="container px-5 py-24 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-wrap">
+            <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+              <h2 className="title-font text-gray-500 dark:text-gray-300 tracking-widest">
+                {" "}
+                Order summary
+              </h2>
+              <CartItems items={cartItems} />
+              <div className="flex border-t border-gray-200 dark:border-gray-700 py-2">
+                {" "}
+                <span className="text-gray-500 dark:text-gray-300">
+                  Subtotal
+                </span>{" "}
+                <span className="ml-auto text-gray-900 dark:text-gray-100">
+                  {subtotal} SEK
+                </span>{" "}
               </div>
-
-              <div className="lg:w-1/3 md:w-1/2 p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10">
-                <h2 className="text-lg mb-1 font-medium title-font dark:text-gray-200">
+              <div className="flex border-t border-gray-200 dark:border-gray-700 py-2">
+                {" "}
+                <span className="text-gray-500 dark:text-gray-300">
+                  Tax (Vat: 25%)
+                </span>{" "}
+                <span className="ml-auto text-gray-900 dark:text-gray-100">
+                  {taxFee} SEK
+                </span>{" "}
+              </div>
+              <div className="flex border-t border-b mb-6 border-gray-200 dark:border-gray-700 py-2">
+                {" "}
+                <span className="text-gray-500 dark:text-gray-300">
+                  Shipping Cost
+                </span>{" "}
+                <span className="ml-auto text-gray-900 dark:text-gray-100">
+                  {shippingFee} SEK
+                </span>
+              </div>
+              <div className="flex">
+                <span className="title-font font-medium text-2xl text-gray-900 dark:text-gray-100">
                   {" "}
-                  
-                  Shipping details
-                </h2>
-                <p className="dark:text-gray-400">
-                  Please provide your complete shipping details.
-                </p>{" "}
-
-                <div className="relative mb-4">
-                  <label
-                    htmlFor="email"
-                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
-                  >
-                    Name of recipient
-                  </label>
-                  <input
-                    type="text"
-                    id="recipientName"
-                    name="recipientName"
-                    value={recipientName}
-                    onChange={(e) => setRecipientName(e.target.value)}
-                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                </div>
-                <div className="relative mb-4">
-                  <label
-                    htmlFor="email"
-                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
-                  >
-                    Address
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                </div>
-                <div className="relative mb-4">
-                  <label
-                    htmlFor="email"
-                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
-                  >
-                    Postal code
-                  </label>
-                  <input
-                    type="text"
-                    id="postalCode"
-                    name="postalCode"
-                    value={postalCode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                </div>
-                <div className="relative mb-4">
-                  <label
-                    htmlFor="email"
-                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
-                  >
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                </div>
-                <div className="relative mb-4">
-                  <label
-                    htmlFor="email"
-                    className="leading-7 text-sm text-gray-400 dark:text-gray-500"
-                  >
-                    Country
-                  </label>
-                  <input
-                    type="text"
-                    id="country"
-                    name="country"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                </div>
-                <button
-                  onClick={saveShippingDetails}
-                  className="mb-10 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
-                >
-                  Save shipping details
-                </button>
-                {clientId && (
-                  <PayPalScriptProvider
-                    options={{
-                      clientId,
-                      currency: "SEK",
-                    }}
-                  >
-                    <PayPalButtons
-                      createOrder={(data, actions) => {
-                        // Initializes the PayPal SDK with the provided clientId
-                        return actions.order.create({
-                          // Initiates the order creation process with PayPal
-                          purchase_units: [
-                            // Specify the purchase details
-                            {
-                              amount: {
-                                currency_code: "SEK",
-                                value: total,
-                                "disable-set-cookie": "true", // Disable cookies to prevent browser blocking on Firefox
-                                "data-sdk-integration-source": "button", // Specify that the integration is a button for proper SDK behavior
-                              },
-                            },
-                          ],
-                        });
-                      }}
-                      onApprove={(data, actions) => {
-                        // Function is triggered after user approves the transaction.
-                        return actions.order.capture().then((details) => {
-                          // details contains the details of the payment, i.e., paymentResult
-                          successPaymentHandler(details);
-                        });
-                      }}
-                    />
-                  </PayPalScriptProvider>
-                )}
+                  {total} SEK
+                </span>
               </div>
             </div>
+
+            <div className="lg:w-1/3 md:w-1/2 p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10">
+              <h2 className="text-lg mb-1 font-medium title-font dark:text-gray-200">
+                {" "}
+                Shipping details
+              </h2>
+              <p className="dark:text-gray-400">
+                Please provide correct shipping details to proceed with the
+                payment.
+                <br />
+                <br />
+                Note, all fields are required.
+              </p>
+              <div className="relative mb-4">
+                <label
+                  htmlFor="email"
+                  className="leading-7 text-sm text-gray-400 dark:text-gray-500"
+                >
+                  Name of recipient
+                </label>
+                <input
+                  type="text"
+                  id="recipientName"
+                  name="recipientName"
+                  value={recipientName}
+                  onChange={handleInputChange(setRecipientName)}
+                  className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+              <div className="relative mb-4">
+                <label
+                  htmlFor="email"
+                  className="leading-7 text-sm text-gray-400 dark:text-gray-500"
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={address}
+                  onChange={handleInputChange(setAddress)}
+                  className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+              <div className="relative mb-4">
+                <label
+                  htmlFor="email"
+                  className="leading-7 text-sm text-gray-400 dark:text-gray-500"
+                >
+                  Postal code
+                </label>
+                <input
+                  type="text"
+                  id="postalCode"
+                  name="postalCode"
+                  value={postalCode}
+                  onChange={handleInputChange(setPostalCode)}
+                  className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+              <div className="relative mb-4">
+                <label
+                  htmlFor="email"
+                  className="leading-7 text-sm text-gray-400 dark:text-gray-500"
+                >
+                  City
+                </label>
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={city}
+                  onChange={handleInputChange(setCity)}
+                  className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+              <div className="relative mb-4">
+                <label
+                  htmlFor="email"
+                  className="leading-7 text-sm text-gray-400 dark:text-gray-500"
+                >
+                  Country
+                </label>
+                <input
+                  type="text"
+                  id="country"
+                  name="country"
+                  value={country}
+                  onChange={handleInputChange(setCountry)}
+                  className="w-full bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 dark:text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+              </div>
+              <button
+                onClick={saveShippingDetails}
+                className={`mb-10 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200 ${
+                  !isValidInput() || shippingInfoSaved
+                    ? "cursor-not-allowed opacity-50"
+                    : ""
+                }`}
+                disabled={!isValidInput() || shippingInfoSaved}
+              >
+                Save shipping details
+              </button>
+              {shippingInfoSaved && isValidInput() && clientId && (
+                <PayPalScriptProvider
+                  options={{
+                    clientId,
+                    currency: "SEK",
+                  }}
+                >
+                  <PayPalButtons
+                    createOrder={(data, actions) => {
+                      // Initializes the PayPal SDK with the provided clientId
+                      return actions.order.create({
+                        // Initiates the order creation process with PayPal
+                        purchase_units: [
+                          // Specify the purchase details
+                          {
+                            amount: {
+                              currency_code: "SEK",
+                              value: total,
+                              "disable-set-cookie": "true", // Disable cookies to prevent browser blocking on Firefox
+                              "data-sdk-integration-source": "button", // Specify that the integration is a button for proper SDK behavior
+                            },
+                          },
+                        ],
+                      });
+                    }}
+                    onApprove={(data, actions) => {
+                      // Function is triggered after user approves the transaction.
+                      return actions.order.capture().then((details) => {
+                        // details contains the details of the payment, i.e., paymentResult
+                        successPaymentHandler(details);
+                      });
+                    }}
+                  />
+                </PayPalScriptProvider>
+              )}
+            </div>
           </div>
-        </section>
-      </Layout>
-    </>
+        </div>
+      </section>
+    </Layout>
   );
 };
 

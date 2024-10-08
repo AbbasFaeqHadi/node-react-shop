@@ -4,6 +4,7 @@ import { productAction } from "../redux/actions/Product";
 import { useEffect, useState } from "react";
 import Layout from "../layout/Layouts";
 import { addToCartAction } from "../redux/actions/Cart";
+import Loading from "../components/Loading";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -24,11 +25,7 @@ const ProductDetails = () => {
   return (
     <Layout>
       {loading ? (
-        <div className="flex items-center justify-center min-h-48">
-          <h1 className="text-3xl font-bold text-gray-700 dark:text-gray-300">
-            Loading...
-          </h1>
-        </div>
+        <Loading />
       ) : error ? (
         <div className="flex items-center justify-center min-h-48 h-auto">
           <h1 className="text-3xl font-bold text-red-500 dark:text-red-300">
