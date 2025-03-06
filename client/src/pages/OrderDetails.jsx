@@ -48,6 +48,7 @@ const OrderDetails = () => {
   const { order, success } = orderReducer;
   const [shippingInfoSaved, setShippingInfoSaved] = useState(false);
   const [paymentResult, setPaymentResult] = useState({});
+  
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -82,7 +82,7 @@ orderRoute.get(
   "/:id",
   protect,
   AsyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id).populate("user", "email");
+    const order = await Order.findById(req.params.id).populate("user", "name email"); // Populate the user field with name and email
     if (order) {
       res.status(200).json(order);
     } else {
